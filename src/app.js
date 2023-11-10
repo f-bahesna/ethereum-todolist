@@ -7,6 +7,7 @@ const App = {
     await App.loadAccount()
     await App.loadContract()
     await App.render()
+    web3.eth.defaultAccount = App.account;
   },
 
   // https://medium.com/metamask/https-medium-com-metamask-breaking-change-injecting-web3-7722797916a8
@@ -91,7 +92,7 @@ const App = {
     for (var i = 1; i <= taskCount; i++) {
       // Fetch the task data from the blockchain
       const task = await App.todoList.tasks(i)
-      
+
       const taskId = task[0].toNumber()
       const taskContent = task[1]
       const taskCompleted = task[2]
