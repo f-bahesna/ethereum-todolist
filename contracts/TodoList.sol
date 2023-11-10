@@ -1,4 +1,7 @@
 pragma solidity ^0.5.0;
+//Notes:
+// 1."_<var>" it means local variable not state variable
+// Every func that created must be migrated first before running. truffle migrate --reset
 
 contract TodoList {
 	uint public taskCount = 0;
@@ -17,6 +20,11 @@ contract TodoList {
 		bool completed
 	);
 
+	event TaskCompleted(
+		uint id,
+		bool completed
+	);
+
 	constructor() public {
 		createTask("Check my own smart contract");
 	}
@@ -25,6 +33,13 @@ contract TodoList {
 		taskCount ++;
 		tasks[taskCount] = Task(taskCount, _content, false);
 		emit TaskCreated(taskCount, _content, false);
+	} 
+ 	
+	function toggleCompleted(uint _id) public {
+		Task memory _task = tasks[_id];
+		_task.completed = !_task.completed;
+		tasks[_id] = _task;
+		emit TaskCompleted(_id, _task.completed);
 	}
 }
 

@@ -97,13 +97,13 @@ const App = {
       const taskContent = task[1]
       const taskCompleted = task[2]
 
-      // Create the html for the task
+      // Trigger for the task
       const $newTaskTemplate = $taskTemplate.clone()
       $newTaskTemplate.find('.content').html(taskContent)
       $newTaskTemplate.find('input')
                       .prop('name', taskId)
                       .prop('checked', taskCompleted)
-                      // .on('click', App.toggleCompleted)
+                      .on('click', App.toggleCompleted)
 
       // Put the task in the correct list
       if (taskCompleted) {
